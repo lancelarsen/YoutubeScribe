@@ -287,7 +287,7 @@ function parseXmlCaptionLines(body) {
   return compactLines(matches.map((match) => decode(match[1])))
 }
 
-function compactLines(lines) {
+export function compactLines(lines) {
   return lines
     .map((line) => decode(String(line)).replace(/\s+/g, ' ').trim())
     .filter(Boolean)
