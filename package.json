@@ -1,0 +1,26 @@
+{
+  "name": "youtube-transcript-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node server/index.js",
+    "build": "tsc && vite build",
+    "start": "node server/index.js",
+    "verify": "node scripts/verify.mjs",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "he": "^1.2.0",
+    "lucide-react": "^1.23.0",
+    "playwright": "^1.61.1"
+  }
+}
