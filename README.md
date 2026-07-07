@@ -46,6 +46,7 @@ node scripts/verify.mjs --browser "https://www.youtube.com/watch?v=UF8uR6Z6KLc"
 2. Select **Get Transcript**.
 3. Copy the transcript to the clipboard or download it as a `.txt` file.
 4. Use the documentation icon in the upper-right corner of the app for a user-facing guide.
+5. Use the theme icon in the upper-right corner to switch between light and dark mode.
 
 The output is transcript text only. The app intentionally removes timestamps.
 
