@@ -24,6 +24,15 @@ npm start
 
 ## Verify
 
+Run deterministic unit tests first. They do not require network access:
+
+```powershell
+npm test
+```
+
+Run the live YouTube smoke verification when you want to confirm the current
+caption extraction path against a public video:
+
 ```powershell
 npm run verify
 ```
