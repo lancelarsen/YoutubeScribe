@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useLayoutEffect, useMemo, useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
 import {
   BookOpen,
@@ -6,8 +6,10 @@ import {
   Clipboard,
   Download,
   Loader2,
+  Moon,
   PlayCircle,
   Search,
+  Sun,
   TriangleAlert,
 } from 'lucide-react'
 
@@ -32,6 +34,16 @@ const examples = [
   'https://youtu.be/dQw4w9WgXcQ',
 ]
 
+type Theme = 'light' | 'dark'
+
+const themeStorageKey = 'youtube-scribe-theme'
+
+function getInitialTheme(): Theme {
+  const storedTheme = window.localStorage.getItem(themeStorageKey)
+  if (storedTheme === 'light' || storedTheme === 'dark') return storedTheme
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
+
 export function App() {
   const [url, setUrl] = useState('')
   const [status, setStatus] = useState('Ready for a public YouTube URL.')
@@ -39,8 +51,16 @@ export function App() {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [theme, setTheme] = useState<Theme>(getInitialTheme)
 
   const canSubmit = useMemo(() => url.trim().length > 0 && !isLoading, [url, isLoading])
+  const nextTheme = theme === 'dark' ? 'light' : 'dark'
+
+  useLayoutEffect(() => {
+    document.documentElement.dataset.theme = theme
+    document.documentElement.style.colorScheme = theme
+    window.localStorage.setItem(themeStorageKey, theme)
+  }, [theme])
 
   async function getTranscript(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -126,6 +146,16 @@ export function App() {
           <a className="icon-button" href="/docs.html" title="Open documentation" aria-label="Open documentation">
             <BookOpen size={18} />
           </a>
+          <button
+            className="icon-button"
+            type="button"
+            title={`Switch to ${nextTheme} mode`}
+            aria-label={`Switch to ${nextTheme} mode`}
+            aria-pressed={theme === 'dark'}
+            onClick={() => setTheme(nextTheme)}
+          >
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
         </div>
       </header>
 
